@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище AccountingModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EquipmentStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ServerAccounting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Server" Type="int" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="InventoryNumber" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="ArrivalDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ServerModel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServerName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UPS_Accounting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UPS" Type="int" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="InventoryNumber" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="ArrivalDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UPSModel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UPSName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_ServerAccounting_EquipmentStatus">
+          <End Role="EquipmentStatus" Type="Self.EquipmentStatus" Multiplicity="0..1" />
+          <End Role="ServerAccounting" Type="Self.ServerAccounting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServerAccounting">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServerAccounting_ServerModel">
+          <End Role="ServerModel" Type="Self.ServerModel" Multiplicity="0..1" />
+          <End Role="ServerAccounting" Type="Self.ServerAccounting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServerModel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServerAccounting">
+              <PropertyRef Name="Server" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UPS_Accounting_Status">
+          <End Role="EquipmentStatus" Type="Self.EquipmentStatus" Multiplicity="0..1" />
+          <End Role="UPS_Accounting" Type="Self.UPS_Accounting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UPS_Accounting">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UPS_Accounting_UPS">
+          <End Role="UPSModel" Type="Self.UPSModel" Multiplicity="0..1" />
+          <End Role="UPS_Accounting" Type="Self.UPS_Accounting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UPSModel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UPS_Accounting">
+              <PropertyRef Name="UPS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AccountingModelContainer">
+          <EntitySet Name="EquipmentStatus" EntityType="Self.EquipmentStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServerAccounting" EntityType="Self.ServerAccounting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ServerModel" EntityType="Self.ServerModel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UPS_Accounting" EntityType="Self.UPS_Accounting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UPSModel" EntityType="Self.UPSModel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ServerAccounting_EquipmentStatus" Association="Self.FK_ServerAccounting_EquipmentStatus">
+            <End Role="EquipmentStatus" EntitySet="EquipmentStatus" />
+            <End Role="ServerAccounting" EntitySet="ServerAccounting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServerAccounting_ServerModel" Association="Self.FK_ServerAccounting_ServerModel">
+            <End Role="ServerModel" EntitySet="ServerModel" />
+            <End Role="ServerAccounting" EntitySet="ServerAccounting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UPS_Accounting_Status" Association="Self.FK_UPS_Accounting_Status">
+            <End Role="EquipmentStatus" EntitySet="EquipmentStatus" />
+            <End Role="UPS_Accounting" EntitySet="UPS_Accounting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UPS_Accounting_UPS" Association="Self.FK_UPS_Accounting_UPS">
+            <End Role="UPSModel" EntitySet="UPSModel" />
+            <End Role="UPS_Accounting" EntitySet="UPS_Accounting" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AccountingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EquipmentStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UPS_Accounting" Relationship="Self.FK_UPS_Accounting_Status" FromRole="EquipmentStatus" ToRole="UPS_Accounting" />
+          <NavigationProperty Name="ServerAccounting" Relationship="AccountingModel.FK_ServerAccounting_EquipmentStatus" FromRole="EquipmentStatus" ToRole="ServerAccounting" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UPS_Accounting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UPS" Type="Int32" />
+          <Property Name="SerialNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="InventoryNumber" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EquipmentStatus" Relationship="Self.FK_UPS_Accounting_Status" FromRole="UPS_Accounting" ToRole="EquipmentStatus" />
+          <NavigationProperty Name="UPSModel" Relationship="Self.FK_UPS_Accounting_UPS" FromRole="UPS_Accounting" ToRole="UPSModel" />
+        </EntityType>
+        <EntityType Name="UPSModel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UPSName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UPS_Accounting" Relationship="Self.FK_UPS_Accounting_UPS" FromRole="UPSModel" ToRole="UPS_Accounting" />
+        </EntityType>
+        <Association Name="FK_UPS_Accounting_Status">
+          <End Role="EquipmentStatus" Type="Self.EquipmentStatus" Multiplicity="0..1" />
+          <End Role="UPS_Accounting" Type="Self.UPS_Accounting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UPS_Accounting">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UPS_Accounting_UPS">
+          <End Role="UPSModel" Type="Self.UPSModel" Multiplicity="0..1" />
+          <End Role="UPS_Accounting" Type="Self.UPS_Accounting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UPSModel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UPS_Accounting">
+              <PropertyRef Name="UPS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AccountingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EquipmentStatus" EntityType="Self.EquipmentStatus" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="UPS_Accounting" EntityType="Self.UPS_Accounting" />
+          <EntitySet Name="UPSModel" EntityType="Self.UPSModel" />
+          <AssociationSet Name="FK_UPS_Accounting_Status" Association="Self.FK_UPS_Accounting_Status">
+            <End Role="EquipmentStatus" EntitySet="EquipmentStatus" />
+            <End Role="UPS_Accounting" EntitySet="UPS_Accounting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UPS_Accounting_UPS" Association="Self.FK_UPS_Accounting_UPS">
+            <End Role="UPSModel" EntitySet="UPSModel" />
+            <End Role="UPS_Accounting" EntitySet="UPS_Accounting" />
+          </AssociationSet>
+          <EntitySet Name="ServerAccounting" EntityType="AccountingModel.ServerAccounting" />
+          <EntitySet Name="ServerModel" EntityType="AccountingModel.ServerModel" />
+          <AssociationSet Name="FK_ServerAccounting_EquipmentStatus" Association="AccountingModel.FK_ServerAccounting_EquipmentStatus">
+            <End Role="EquipmentStatus" EntitySet="EquipmentStatus" />
+            <End Role="ServerAccounting" EntitySet="ServerAccounting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServerAccounting_ServerModel" Association="AccountingModel.FK_ServerAccounting_ServerModel">
+            <End Role="ServerModel" EntitySet="ServerModel" />
+            <End Role="ServerAccounting" EntitySet="ServerAccounting" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ServerAccounting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Server" Type="Int32" />
+          <Property Name="SerialNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="InventoryNumber" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="ArrivalDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EquipmentStatus" Relationship="AccountingModel.FK_ServerAccounting_EquipmentStatus" FromRole="ServerAccounting" ToRole="EquipmentStatus" />
+          <NavigationProperty Name="ServerModel" Relationship="AccountingModel.FK_ServerAccounting_ServerModel" FromRole="ServerAccounting" ToRole="ServerModel" />
+        </EntityType>
+        <EntityType Name="ServerModel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServerName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ServerAccounting" Relationship="AccountingModel.FK_ServerAccounting_ServerModel" FromRole="ServerModel" ToRole="ServerAccounting" />
+        </EntityType>
+        <Association Name="FK_ServerAccounting_EquipmentStatus">
+          <End Type="AccountingModel.EquipmentStatus" Role="EquipmentStatus" Multiplicity="0..1" />
+          <End Type="AccountingModel.ServerAccounting" Role="ServerAccounting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServerAccounting">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServerAccounting_ServerModel">
+          <End Type="AccountingModel.ServerModel" Role="ServerModel" Multiplicity="0..1" />
+          <End Type="AccountingModel.ServerAccounting" Role="ServerAccounting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServerModel">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ServerAccounting">
+              <PropertyRef Name="Server" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AccountingModelContainer" CdmEntityContainer="AccountingEntities">
+          <EntitySetMapping Name="EquipmentStatus">
+            <EntityTypeMapping TypeName="AccountingModel.EquipmentStatus">
+              <MappingFragment StoreEntitySet="EquipmentStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AccountingModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UPS_Accounting">
+            <EntityTypeMapping TypeName="AccountingModel.UPS_Accounting">
+              <MappingFragment StoreEntitySet="UPS_Accounting">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UPS" ColumnName="UPS" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="InventoryNumber" ColumnName="InventoryNumber" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UPSModel">
+            <EntityTypeMapping TypeName="AccountingModel.UPSModel">
+              <MappingFragment StoreEntitySet="UPSModel">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UPSName" ColumnName="UPSName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServerAccounting">
+            <EntityTypeMapping TypeName="AccountingModel.ServerAccounting">
+              <MappingFragment StoreEntitySet="ServerAccounting">
+                <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="InventoryNumber" ColumnName="InventoryNumber" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="Server" ColumnName="Server" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServerModel">
+            <EntityTypeMapping TypeName="AccountingModel.ServerModel">
+              <MappingFragment StoreEntitySet="ServerModel">
+                <ScalarProperty Name="ServerName" ColumnName="ServerName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

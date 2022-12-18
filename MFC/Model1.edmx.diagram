@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7a306c3c87e64b74ada92fe87f5ee98f" Name="Diagram1">
+        <EntityTypeShape EntityType="AccountingModel.EquipmentStatus" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.UPS_Accounting" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingModel.UPSModel" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="AccountingModel.FK_UPS_Accounting_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="AccountingModel.FK_UPS_Accounting_UPS" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AccountingModel.ServerAccounting" Width="1.5" PointX="6" PointY="1" />
+        <EntityTypeShape EntityType="AccountingModel.ServerModel" Width="1.5" PointX="3.75" PointY="8.5" />
+        <AssociationConnector Association="AccountingModel.FK_ServerAccounting_EquipmentStatus" />
+        <AssociationConnector Association="AccountingModel.FK_ServerAccounting_ServerModel" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
