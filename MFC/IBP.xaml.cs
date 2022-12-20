@@ -114,12 +114,26 @@ namespace MFC
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            var input = (sender as TextBox).Text.ToLower();
+            if (!(string.IsNullOrEmpty(input)))
+            {
+                int resultCount = Acc.UPS_Accounting.Count(x => x.UPSModel.UPSName.Contains(input));
+                IBP_List.ItemsSource = Acc.UPS_Accounting.Where(x => x.UPSModel.UPSName.Contains(input)).ToList();
+            }
+            else
+            {
+                IBP_List.ItemsSource = Acc.UPS_Accounting.ToList();
+            }
         }
 
         private void filterCB(object sender, SelectionChangedEventArgs e)
         {
+            
+        }
 
+        private void btnLoadData(object sender, RoutedEventArgs e)
+        {
+            IBP_List.ItemsSource = Acc.UPS_Accounting.ToList();
         }
     }
 }

@@ -65,7 +65,7 @@
                 <ImageBrush ImageSource="/back.png"/>
             </Button.Background>
         </Button>
-        <DataGrid x:Name="IBP_List" ItemsSource="{Binding UPS_Accounting}" Margin="20,75,250,0" Background="{x:Null}" AutoGenerateColumns="False">
+        <DataGrid IsReadOnly="true" x:Name="IBP_List" ItemsSource="{Binding UPS_Accounting}" Margin="20,75,250,0" Background="{x:Null}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="Модель ИБП" Binding="{Binding UPSModel.UPSName}"/>
                 <DataGridTextColumn Width="*" Header="Серийный номер" Binding="{Binding SerialNumber}"/>
@@ -81,7 +81,7 @@
         <TextBox x:Name="tbInventory" HorizontalAlignment="Left" Margin="851,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" Text="{Binding SelectedItem.InventoryNumber, ElementName = IBP_List}"/>
         <Label Content="Статус" HorizontalAlignment="Left" Margin="851,261,0,0" VerticalAlignment="Top"/>
         <Label Content="Дата прибытия" HorizontalAlignment="Left" Margin="851,323,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="dpArrival" HorizontalAlignment="Left" Margin="851,354,0,0" VerticalAlignment="Top" Width="230"/>
+        <DatePicker DataContext="{Binding SelectedItem.ArrivalDate, ElementName = IBP_List}" x:Name="dpArrival" HorizontalAlignment="Left" Margin="851,354,0,0" VerticalAlignment="Top" Width="230"/>
         <Label Content="Фильтрация" HorizontalAlignment="Left" Margin="83,32,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="cbFilter" SelectionChanged="filterCB" ItemsSource="{Binding EquipmentStatus.StatusName}" DisplayMemberPath="StatusName" HorizontalAlignment="Left" Margin="164,34,0,0" VerticalAlignment="Top" Width="160"/>
         <Label Content="Поиск" HorizontalAlignment="Left" Margin="365,32,0,0" VerticalAlignment="Top"/>
@@ -100,5 +100,10 @@
         <ComboBox x:Name="cbUPS" ItemsSource="{Binding UPSModel.UPSName}" DisplayMemberPath="UPSName" Text="{Binding ElementName = IBP_List, Path = SelectedItem.UPSModel.UPSName}" HorizontalAlignment="Left" Margin="851,106,0,0" VerticalAlignment="Top" Width="230"/>
         <TextBox HorizontalAlignment="Left" Margin="873,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="53" IsReadOnly="True" x:Name="tbID" Text="{Binding SelectedItem.ID ,ElementName=IBP_List}"/>
         <Label Content="ID" HorizontalAlignment="Left" Margin="851,44,0,0" VerticalAlignment="Top"/>
+        <Button Style="{DynamicResource btn_Style}" Content="Button" HorizontalAlignment="Left" Margin="755,20,0,0" VerticalAlignment="Top" Click="btnLoadData" Width="50" Height="50" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="/cloud-computing.png"/>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>
